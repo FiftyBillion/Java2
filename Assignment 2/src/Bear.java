@@ -1,0 +1,48 @@
+/*
+ * Bear.class
+ * this class is extended from Critter
+ * it has random color black and white (different kinds of bear)
+ * its icon will switch between "/" and "\" each time move
+ * it will infect the enemy in the front
+ * if no enemy, it will hop
+ * otherwise turn left
+ * @author Po-I Wu
+ * @version 20170413
+ */
+
+import java.awt.*;
+
+public class Bear extends Critter {
+	
+	private boolean polar = false;
+	private int countMove = 0;		// a variable to make bear icon switch between "/" & "\"
+	
+	public Bear(boolean polar) {
+		this.polar = polar;
+	}
+	public Color getColor() {
+		if (polar) {
+			return Color.WHITE;
+		} else {
+			return Color.BLACK;
+		}
+	}
+	public String toString() {
+		if (countMove == 0) {
+			return "/";		// it will return this first time
+		} else {			// countMove will become 1 after move
+			countMove -= 2;	// set it to -1, and it will become 0 again after move
+			return "\\";
+		}
+	}
+	public Action getMove(CritterInfo info) {
+		countMove++;
+		if(info.getFront() == Neighbor.OTHER) {
+			return Action.INFECT;
+		} else if (info.getFront() == Neighbor.EMPTY) {
+			return Action.HOP;
+		} else {
+			return Action.LEFT;
+		}
+	}
+}

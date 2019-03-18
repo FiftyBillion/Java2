@@ -1,0 +1,141 @@
+/*
+ * CS 145
+ * Programming Assignment #1
+ * This program will get the information of animals and move animals randomly
+ * @author Po-I Wu
+ * @version 20170404
+ */
+ 
+import java.util.*;
+ 
+// animal class, which has coordinate, name, and max speed of animals
+public class Animal {
+	private int x = 0, y = 0;
+	private String name = "unknown";
+	private int maxSpeed = 4;
+	
+	public Animal() {
+		
+	}
+	public Animal(int X, int Y, String N, int speed) {
+		x = X;
+		y = Y;
+		name = N;
+		maxSpeed = speed;
+		if (x < -20)	// make sure stay in the range
+			x = -20;
+		if (x > 20)
+			x = 20;
+		if (y < -20)
+			y = -20;
+		if (y > 20)
+			y = 20;
+		if (maxSpeed < 2)
+			maxSpeed = 2;
+		if (maxSpeed > 5)
+			maxSpeed = 5;
+	}
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
+	}
+	public String toString() {
+		return name + " (" + x + ", " + y +")";
+	}
+	public boolean touching(Animal other) {
+		if (getX() == other.getX() && getY() == other.getY())
+			return true;
+		else
+			return false;
+	}
+	public void move() {
+		Random rand = new Random();
+		int xy = rand.nextInt(2);
+		int b = rand.nextInt(2);
+		int moving = rand.nextInt(maxSpeed)+1;
+		
+		if (0 == xy) {	// move x
+			if (x == 20)	{	// if maximum, move left
+				x -= moving;
+			}
+			else if (0 == b)	{	// move right
+				x += moving;
+			}
+			else if (x == -20)	{	// if minimum, move left
+				x += moving;
+			}
+			else if (1 == b)	{	// move left
+				x -= moving;
+			}
+		}
+		if (1 == xy)	{	// move y
+			if (y == 20)	{	// if maximum, move down
+				y -= moving;
+			}
+			else if (0 == b)	{	// move up
+				y += moving;
+			}
+			else if (y == -20)	{	// if minimum, move down
+				y += moving;
+			}
+			else if (1 == b)	{	// move down
+				y -= moving;
+			}
+		}
+		if (x < -20)	// make sure stay in the range
+			x = -20;
+		if (x > 20)
+			x = 20;
+		if (y < -20)
+			y = -20;
+		if (y > 20)
+			y = 20;
+	}
+	public String getName() {
+		return name;
+	}
+	
+	// create 5 array of Animal
+	// move 25 times and check if touching each moving
+	public static void main(String[] args) {
+		Animal[] animal = new Animal[5];
+		animal[0] = new Animal(3, 0, "Eagle", 4);
+		animal[1] = new Animal(7, -8, "Lion", 5);
+		animal[2] = new Animal(8, 7, "Dog", 3);
+		animal[3] = new Animal(-9, 5, "Cat", 3);
+		animal[4] = new Animal(6, -14, "Rat", 2);
+		for (int i = 0; i < 5; i++)	{
+			System.out.println(animal[i].toString());
+		}
+		System.out.println();
+		for (int i = 0; i < 25; i++) {
+			for (int j = 0; j < 5; j++) {
+				boolean fight = false;
+				animal[j].move();
+				int m;
+				int k = 0;
+				for ( m = 0; m < 5; m++) {
+					for ( k = m+1; k < 5; k++) {
+						fight = animal[m].touching(animal[k]);
+						//if (animal[m].touching(animal[k])) {
+						//System.out.println("FIGHT!!!");
+						//System.out.println(animal[m].getName()+" V.S "+animal[k].getName());
+						//}
+					}
+				}
+				if (fight) {
+					System.out.println("FIGHT!!!");
+					System.out.println(animal[m].getName()+" V.S "+animal[k].getName());
+				}
+				System.out.println(animal[j].toString());
+			}
+			System.out.println("***************");
+		}
+		System.out.println("Final Location:");
+		for (int i = 0; i < 5; i++) {
+			System.out.println(animal[i].toString());
+		}
+	}
+}

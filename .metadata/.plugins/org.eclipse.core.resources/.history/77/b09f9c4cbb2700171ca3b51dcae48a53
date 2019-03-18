@@ -1,0 +1,68 @@
+/*
+ * CS 145
+ * Assignment 3
+ * this is HangmanManager.class
+ * 
+ * @author Po-I Wu
+ * @version 20170422
+ */
+
+import java.util.*;
+
+public class HangmanManager {
+	private List<String> dictionary;
+	private int length;
+	private int max;
+	private char guess;
+	SortedSet<Character> guessesWord = new TreeSet<Character>();
+	
+	public HangmanManager(List<String> dictionary, int length, int max) {
+		if(length < 1) {
+			throw new IllegalArgumentException("Length cannot be less than 1");
+		} else if(max < 0) {
+			throw new IllegalArgumentException("Maximum guess cannot be less than 0");
+		} else {
+			this.dictionary = dictionary;
+			this.length = length;
+			this.max = max;
+		}
+	}
+	public Set<String> words() {
+		Set<String> possibleAnswer = new TreeSet<String>();
+		for(String x: dictionary) {
+			if(x.length() == length) {
+				possibleAnswer.add(x);
+			}
+		}
+		return possibleAnswer;
+	}
+	public int guessesLeft() {
+		return max;
+	}
+	public SortedSet<Character> guesses() {
+		return guessesWord;
+	}
+	public String pattern() {
+		String output = "";
+		for(int i = 0; i < length; i++) {
+			output += "- ";
+		}
+		return output;
+	}
+	public int record(char guess) {
+		this.guess = guess;
+		guessesWord.add(guess);
+		return 0;
+	}
+	public static String getPattern(String myWord, char ch) {
+		String pattern = "";
+		for(int i = 0; i < myWord.length(); i++) {
+			if(myWord.charAt(i) != ch) {
+				pattern += "-";
+			} else {
+				pattern += ch;
+			}
+		}
+		return pattern;
+	}
+}

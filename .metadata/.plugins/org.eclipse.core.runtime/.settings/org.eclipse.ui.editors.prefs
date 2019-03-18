@@ -1,0 +1,13 @@
+AbstractTextEditor.Color.Background=30,30,30
+AbstractTextEditor.Color.SelectionForeground=255,255,0
+PHPReadOccurrenceIndicationColor=0,0,0
+PHPWriteOccurrenceIndicationColor=0,0,0
+bookmarkIndicationColor=64,128,128
+currentLineColor=62,62,62
+eclipse.preferences.version=1
+javaScriptOccurrenceIndicationColor=0,0,0
+lineNumberColor=212,212,212
+occurrenceIndicationColor=0,0,0
+org.eclipse.cdt.ui.occurrenceIndicationColor=0,0,0
+overviewRuler_migration=migrated_3.1
+pydevOccurrenceIndicationColor=0,0,0

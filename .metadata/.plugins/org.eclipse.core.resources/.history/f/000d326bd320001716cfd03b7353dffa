@@ -1,0 +1,60 @@
+/*
+ * Giant.class
+ * 
+ * @author Po-I Wu
+ * @version 20170413
+ */
+
+import java.awt.*;
+
+public class Giant extends Critter{
+	
+	private int countMove = 0;
+	
+	public Giant() {
+		
+	}
+	public Color getColor() {
+		return Color.GRAY;
+	}
+	public String toString() {
+		boolean a = false;
+		boolean b = false;
+		boolean c = false;
+		boolean d = false;
+		boolean e = false;
+		boolean f = false;
+		if (countMove <= 5) {
+			a = true;
+		} else if (countMove > 5 ) {
+			b = true;
+		} else if (countMove <= 11) {
+			c = true;
+		} else if (countMove > 11) {
+			d = true;
+		} else if (countMove <= 17) {
+			e = true;
+		} else if (countMove > 17) {
+			f = true;
+		}
+		if (a) {
+			return "fee";
+		} else if (b && c) {
+			return "fie";
+		} else if (d && e) {
+			return "foe";
+		} else if (f) {
+			return "fum";
+		}
+	}
+	public Action getMove(CritterInfo info) {
+		countMove++;
+		if (info.getFront() == Neighbor.OTHER) {
+			return Action.INFECT;
+		} else if (info.getFront() == Neighbor.EMPTY) {
+			return Action.HOP;
+		} else {
+			return Action.RIGHT;
+		}
+	}
+}

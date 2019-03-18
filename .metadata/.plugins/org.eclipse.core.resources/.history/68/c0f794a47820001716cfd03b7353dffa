@@ -1,0 +1,43 @@
+/*
+ * 
+ * @author Po-I Wu
+ * @version 20170413
+ */
+
+import java.awt.*;
+
+public class Bear extends Critter {
+	
+	private boolean polar = false;
+	private int countMove = 0;
+	
+	public Bear(boolean polar) {
+		this.polar = polar;
+	}
+	public Color getColor() {
+		if (polar) {
+			return Color.WHITE;
+		} else {
+			return Color.BLACK;
+		}
+	}
+	public String toString() {
+		if (countMove == 1) {
+			countMove--;
+			return "/";
+		} else {
+			countMove--;
+			return "\\";
+		}
+	}
+	public Action getMove(CritterInfo info) {
+		countMove++;
+		if(info.getFront() == Neighbor.OTHER) {
+			return Action.INFECT;
+		} else if (info.getFront() == Neighbor.EMPTY) {
+			return Action.HOP;
+		} else {
+			return Action.LEFT;
+		}
+	}
+}

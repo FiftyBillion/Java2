@@ -1,0 +1,33 @@
+Q:Is it a technology product?
+Q:Can it run ".exe" program?
+A:computer
+Q:Can you wear it?
+Q:Can it check your heartbeat?
+A:smartwatch
+A:Google glass
+Q:Does it have wheels?
+Q:Can it autopilot?
+Q:Can it fly?
+A:airplane
+A:Tesla
+A:Honda Civic
+A:smartphone
+Q:Do you put money inside?
+Q:Does it look like a pig?
+A:piggy bank
+A:wallet
+Q:Do you use it to drink something?
+Q:Do people usually bring it during hiking?
+A:water bottle
+A:cup
+Q:Is it a music Instrument?
+Q:Does it have to play with two sticks?
+A:drums
+Q:Does it have strings?
+A:piano
+A:flute
+Q:Does it bark?
+A:dog
+Q:Does it has a long nose?
+A:elephent
+A:pig

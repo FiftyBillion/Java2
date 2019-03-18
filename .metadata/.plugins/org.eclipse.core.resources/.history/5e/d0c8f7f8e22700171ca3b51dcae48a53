@@ -1,0 +1,101 @@
+/*
+ * CS 145
+ * Assignment 3
+ * this is HangmanManager.class
+ * 
+ * @author Po-I Wu
+ * @version 20170422
+ */
+
+import java.util.*;
+
+public class HangmanManager {
+	private List<String> dictionary;
+	private int length;
+	public int max;
+	public int wrongGuess = 0;
+	public int numberOfChance = max - wrongGuess;
+	private char guess;
+	private String showPattern;
+	private SortedSet<Character> guessesWord = new TreeSet<Character>();
+	public Set<String> possibleAnswer = new TreeSet<String>();
+	private Map<String, Integer> pocket = new TreeMap<String, Integer>();
+	
+	public HangmanManager(List<String> dictionary, int length, int max) {
+		if(length < 1) {
+			throw new IllegalArgumentException("Length cannot be less than 1");
+		} else if(max < 0) {
+			throw new IllegalArgumentException("Maximum guess cannot be less than 0");
+		} else {
+			this.dictionary = dictionary;
+			this.length = length;
+			this.max = max;
+		}
+	}
+	public Set<String> words() {
+		for(String x: dictionary) {
+			if(x.length() == length) {
+				possibleAnswer.add(x);
+			}
+		}
+		return possibleAnswer;
+	}
+	public int guessesLeft() {
+		return numberOfChance;
+	}
+	public SortedSet<Character> guesses() {
+		return guessesWord;
+	}
+	public String pattern() {
+		if (guess == '\u0000') {		// default char
+			return getPattern(length);
+		} else {
+			return showPattern;
+		}
+	}
+	public int record(char guess) {
+		if(numberOfChance < 1) {
+			throw new IllegalStateException("You have no chance !");
+		} else if(!possibleAnswer.isEmpty() && guess == this.guess) {
+			throw new IllegalArgumentException("You have guessed this before");
+		} else {
+			this.guess = guess;
+			guessesWord.add(guess);
+			for(String x: possibleAnswer) {
+				if(pocket.containsKey(getPattern(x, guess))) {
+					pocket.put(getPattern(x, guess), pocket.get(getPattern(x, guess))+1);
+				} else {
+					pocket.put(getPattern(x, guess), 1);
+				}
+			}System.out.println(pocket);
+		}return 0;
+	}
+	
+	// parameter: String and char
+	// change the word to the pattern which only contain one letter
+	// for example: apple, p  ----> "-pp--"
+	private static String getPattern(String myWord, char letter) {
+		String pattern = "";
+		for(int i = 0; i < myWord.length(); i++) {
+			if(myWord.charAt(i) != letter) {
+				pattern += "-";
+			} else {
+				pattern += letter;
+			}
+		}
+		return pattern;
+	}
+
+	// this is a overloading method
+	// parameter: int
+	// it will return "-" as long as the string
+	private static String getPattern(int wordLength) {
+		String output = "";
+		for(int i = 0; i < wordLength; i++) {
+			output += "-";
+			if(i < wordLength-1) 
+				output += " ";
+		}
+		return output;
+	}
+}
